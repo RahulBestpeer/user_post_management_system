@@ -1,0 +1,30 @@
+<%= render "navbar/nav"%>
+<%if flash[:error_message] != nil %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong><%=flash[:error_message]%></strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%end%>
+
+<div class="container">
+  <div class="row">
+    <%
+      user = User.find(session[:user_id])
+      user.comments.each do |comment|
+    %>
+    <div class="col-sm-4">
+      <div class="card" ">
+  
+        <div class="card-body">
+          <h5 class="card-title">Post Title : <%=comment.post.title%></h5>
+          <p class="card-text">Comment : <%=comment.title%></p>
+          <%= link_to 'Delete Comment', user_post_comment_path(user.id,comment.post.id,comment.id), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"}, class:"btn btn-danger m-1" %>
+          <a href="/users/<%=user.id%>/posts/<%=comment.post.id%>/comments/<%=comment.id%>/edit" class="btn btn-warning">Update Comment</a>
+        </div>
+      </div>
+    </div>
+   <%end%>
+  </div>
+</div>

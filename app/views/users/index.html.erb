@@ -1,0 +1,28 @@
+<%= render "navbar/nav"%>
+<%if flash[:error_message] != nil %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong><%=flash[:error_message]%></strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%end%>
+<div class="container">
+  <div class="row">
+    <%Post.all.each do |post|%>
+    <div class="col-sm-4">
+     <div class="card" style="width: 22rem;">
+        <div class="card-body">
+           <h5 class="card-title">Post Title : <%=post.title%></h5>
+            <p class="card-text">Post description : <%=post.description%></p>
+            <p class="card-text ">Posted by : <%=post.user.name%></p>
+            
+           
+         </div>
+         <div>
+             <a href="/users/<%=session[:user_id]%>/posts/<%=post.id%>/comments/new" class="btn btn-success m-1">add comment</a>
+            <a href="/users/<%=session[:user_id]%>/posts/<%=post.id%>/comments/show" class="btn btn-primary m-1">View comments</a>
+          </div>
+        </div>
+    </div>
+    <%end%>
+  </div>
+</div>

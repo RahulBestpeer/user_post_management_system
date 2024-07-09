@@ -1,0 +1,28 @@
+<%= render "navbar/nav"%>
+<%if flash[:error_message] != nil %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong><%=flash[:error_message]%></strong> 
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%end%>
+<div class="card" style="width: 28rem; margin:auto;margin-top:2rem">
+     <h5 class="card-title" style="margin:auto;margin-top:5px;">Add Comment</h5>
+  <div class="card-body">
+<%= form_with model:@comment, url:user_post_comments_path(session[:user_id],@post.id) do |form|%>
+    
+    <div class="mb-3">
+        <%=form.hidden_field :post_id, value:params[:post_id]%>
+    </div>
+    <div class="mb-3">
+        <%=form.label :title, "Comment", class:"form-label"%>
+        <%=form.text_field :title, class:"form-control"%>
+    </div>
+    <% @comment.errors.full_messages_for(:title).each do |message|%>
+        <p><%=message%></p>
+    <%end%>
+   
+   
+    <%= form.submit "Add Comment", class:"btn btn-primary m-1"%>
+<%end%>
+</div>
+</div>

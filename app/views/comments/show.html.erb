@@ -1,0 +1,23 @@
+<%= render 'navbar/nav'%>
+
+
+<div class="container">
+  <div class="row">
+    <%
+      post = Post.find(params[:post_id])
+      post.comments.each do |comment|
+    %>
+    <div class="col-sm-4">
+      <div class="card" ">
+  
+        <div class="card-body">
+          <h5 class="card-title">Post Title : <%=comment.post.title%></h5>
+          <p class="card-text">Comment : <%=comment.title%></p>
+          <p class="card-text">Comment by : <%=post.user.name%></p>
+          
+        </div>
+      </div>
+    </div>
+   <%end%>
+  </div>
+</div>
